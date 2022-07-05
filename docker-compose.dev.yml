@@ -1,0 +1,47 @@
+version: '3'
+
+volumes:
+  db-data-mariadb:
+    driver: local
+
+  db-data-mariadb-config:
+    driver: local
+
+services:
+  linda-mariadb:
+    image: mariadb:10.8.2-rc-focal
+    container_name: linda-mariadb
+    environment:
+      MARIADB_DATABASE: "linda_data"
+      MARIADB_USER: "linda_data"
+      MARIADB_PASSWORD: "linda_data"
+      MARIADB_ROOT_PASSWORD: "root"
+    restart: always
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    networks:
+      - linda-net
+    volumes:
+      - db-data-mariadb:/var/lib/mysql
+      - db-data-mariadb-config:/etc/mysql
+
+  linda:
+    image: linda:0.8.0-beta.0
+    container_name: linda
+    networks:
+      - linda-net
+    ports:
+      - "9292:9292"
+    depends_on:
+      - linda-mariadb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://linda-mariadb:3306/linda_data
+      SPRING_PROFILES_ACTIVE: dev
+    restart: on-failure
+
+networks:
+  linda-net:
+    driver: bridge
+
