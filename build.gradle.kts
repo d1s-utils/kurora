@@ -13,6 +13,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+    maven(url = "https://jitpack.io")
 }
 
 val teabagsVersion: String by project
