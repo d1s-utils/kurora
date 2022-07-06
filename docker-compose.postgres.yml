@@ -19,28 +19,6 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    networks:
-      - kurora-net
-    expose:
-      - 5432
     volumes:
       - db-data-postgres:/var/lib/postgresql/data
       - db-data-postgres-config:/var/lib/postgresql/dataConfig
-
-  kurora:
-    image: kurora:0.1.0-beta.0
-    container_name: kurora
-    networks:
-      - kurora-net
-    ports:
-      - "9595:9595"
-    depends_on:
-      - kurora-postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://kurora-postgres:5432/kurora_data
-      SPRING_PROFILES_ACTIVE: dev
-    restart: on-failure
-
-networks:
-  kurora-net:
-    driver: bridge

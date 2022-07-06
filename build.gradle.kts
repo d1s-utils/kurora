@@ -37,7 +37,7 @@ dependencies {
     implementation("com.github.d1s-utils:spring-boot-starter-advice:$starterAdviceVersion")
     implementation("com.github.d1s-utils:spring-boot-starter-simple-security:$starterSimpleSecurityVersion")
     implementation("com.github.d1s-utils.long-polling:spring-boot-starter-lp-server-web:$longPollingStarterVersion")
-    implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation("org.postgresql:postgresql")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

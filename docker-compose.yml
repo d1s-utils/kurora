@@ -1,43 +1,43 @@
 version: '3'
 
 volumes:
-  db-data-mariadb:
+  db-data-postgres:
     driver: local
 
-  db-data-mariadb-config:
+  db-data-postgres-config:
     driver: local
 
 services:
-  linda-mariadb:
-    image: mariadb:10.8.2-rc-focal
-    container_name: linda-mariadb
+  kurora-postgres:
+    image: postgres:15beta2-bullseye
+    container_name: kurora-postgres
     environment:
-      MARIADB_DATABASE: "linda_data"
-      MARIADB_USER: "linda_data"
-      MARIADB_PASSWORD: "linda_data"
-      MARIADB_ROOT_PASSWORD: "root"
+      POSTGRES_DB: "kurora_data"
+      POSTGRES_USER: "kurora_data"
+      POSTGRES_PASSWORD: "kurora_data"
+      PGDATA: /var/lib/postgresql/data/pgdata
     restart: always
     networks:
-      - linda-net
+      - kurora-net
     expose:
-      - 3306
+      - 5432
     volumes:
-      - db-data-mariadb:/var/lib/mysql
-      - db-data-mariadb-config:/etc/mysql
+      - db-data-postgres:/var/lib/postgresql/data
+      - db-data-postgres-config:/var/lib/postgresql/dataConfig
 
-  linda:
-    image: linda:0.8.0-beta.0
-    container_name: linda
+  kurora:
+    image: kurora:0.1.0-beta.0
+    container_name: kurora
     networks:
-      - linda-net
+      - kurora-net
     ports:
-      - "9292:9292"
+      - "9595:9595"
     depends_on:
-      - linda-mariadb
+      - kurora-postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://linda-mariadb:3306/linda_data
+      SPRING_DATASOURCE_URL: jdbc:postgresql://kurora-postgres:5432/kurora_data
     restart: on-failure
 
 networks:
-  linda-net:
+  kurora-net:
     driver: bridge
