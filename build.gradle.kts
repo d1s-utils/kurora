@@ -18,8 +18,6 @@ repositories {
 
 val teabagsVersion: String by project
 val kmLogVersion: String by project
-val starterAdviceVersion: String by project
-val starterSimpleSecurityVersion: String by project
 val liquibaseVersion: String by project
 val longPollingStarterVersion: String by project
 
@@ -35,8 +33,6 @@ dependencies {
     implementation("com.github.d1s-utils.teabags:teabag-dto:$teabagsVersion")
     implementation("com.github.d1s-utils.teabags:teabag-stdlib:$teabagsVersion")
     implementation("org.lighthousegames:logging-jvm:$kmLogVersion")
-    implementation("com.github.d1s-utils:spring-boot-starter-advice:$starterAdviceVersion")
-    implementation("com.github.d1s-utils:spring-boot-starter-simple-security:$starterSimpleSecurityVersion")
     implementation("com.github.d1s-utils.long-polling:spring-boot-starter-lp-server-web:$longPollingStarterVersion")
     implementation("org.postgresql:postgresql")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
